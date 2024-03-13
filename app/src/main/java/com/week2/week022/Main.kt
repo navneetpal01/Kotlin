@@ -26,6 +26,7 @@ fun main() {
     for (n in 0..10) {
         println(n)
     }
+    println("-------------------------")
     //Count till 9
     for (n in 0 until 10) {
         println(n)
@@ -35,11 +36,66 @@ fun main() {
     for (n in 0..10 step 2) {
         println(n)
     }
-
+    println("-------------------------")
     //will skip 2 and the last
     for (n in 0 until 10 step 2) {
         println(n)
     }
+    println("-------------------------")
+    //Count in reverse
+    for (n in 10 downTo  0 step 2) {
+        println(n)
+    }
 
+    println("-------------------------")
+    //While loop
+    var n = 0
+    while (n < 10){
+        println(n)
+        n++
+    }
+    //do while loop
+    println("-------------------------")
+    n = 0
+    do {
+        n++
+        println(n)
+    }while (n < 10)
+
+
+    println("-------------------------")
+
+    n = -1
+    do {
+        n++
+        println(n)
+    }while (n < 10)
+
+    println("-------------------------")
+
+    n = 0
+    while(true){
+        if (n == 10){
+            break
+        }
+        println(n)
+        n++
+
+    }
+
+    n = 0
+    while(true){
+        if (n ==3){
+            n++
+            continue //Skip the rest and restarts from the beginning
+        }
+        if (n == 10){
+            break
+        }
+        println(n)
+        n++
+    }
+
+    //Nested Loops
 
 }
