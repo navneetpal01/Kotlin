@@ -97,5 +97,18 @@ fun main() {
     }
 
     //Nested Loops
+    println("-------------------------")
+    rows@ for (i in 0 until 10){
+       cols@ for (j in 0 until 10){
+            if (i == j) {
+                continue
+            }
+            if (i == 5 && j == 6){
+                continue@rows
+                // or break@cols
+            }
+            println("$i , $j")
+        }
+    }
 
 }
