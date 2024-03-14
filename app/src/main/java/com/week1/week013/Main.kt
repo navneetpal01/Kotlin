@@ -1,47 +1,55 @@
-package com.week1.week013
+package com.week1.week013;
 
 
+const val name = "Scott" //Stored and managed by the compiler in the class file
+fun main(args: Array<String>) {
+    val name1 : String= "Scott"  //String is redundant
+    val name2  = "Scott"  //Prefer way
 
-    var x = 10
-    var y = 20
-fun main(){
-    println(x + y)
+    val first = "Hello"
+    val last = "World"
+    val helloWorld = first + ", " + last //Basic string concatenation
 
-    val done = false
-    val isPerson = true
-    val result1a = done && isPerson  //SHORT CIRCUITING AND
-    val result1b = done and isPerson // NON-SHORT-CIRCUITING AND
-             //Might be useful if side effect is necessary
-    val result2a = done || isPerson // SHORT-CIRCUITING OR
-    val result2b = done or isPerson // NON-SHORT-CIRCUITING OR
+    println(helloWorld)
 
-    val xAndYAreEqual : Boolean = (x == y)
-    val xAndYAreNotEqual : Boolean = (x != y)
+    val helloWorldUsingTemplate1 = "$first, $last" //Basic string concatenation with template
+    val helloWorldUsingTemplate2 = "${first.substring(0,2)}, ${last.substring(0,2)}" //Basic string concatenation with template
 
-    var n = 10
-    val m1 = n++ //DO NOT DO THIS - DON'T USE n++ as a expression
-        //m1 == 10,n == 11
-    val m2 = ++n //DO NOT DO THIS - DON'T USE ++n as a expression
-        //m2 == 11,n == 10
+    val typeOfStrings = "animal"
+    val numberOfThings = 10
+    val onlyOne = 1
+    println(helloWorldUsingTemplate2)
 
-    n++ //Use it like a statement
-    ++n //Use it like a statement
-    val m3 = n //m3 == 14
+    val message1 = "There are $numberOfThings ${typeOfStrings}s"
+    println(message1)
+    val message2 = "There is $onlyOne $typeOfStrings"
+    println(message2)
 
-    foo(n++) //Don't do this
-    //Insted
-    foo(n) //Don't do this
-    n++
 
-    n += 2
+    //RAW STRINGS
+    val message3 = """
+        Copyright 2024 Scott Stanchfield
+        All Rights Reserved
+        
+        Some other licence text here
+    """.trimIndent()
+    println(message3)
 
+
+    val message4 = """
+        |Copyright 2024 Scott Stanchfield
+        |                         All Rights Reserved
+        |
+        |Some other licence text here
+    """.trimMargin(marginPrefix = "|")
+    println(message4)
+
+//Takes the least indent and trims that
+    val message5 = """
+           Copyright 2024 Scott Stanchfield
+               All Rights Reserved
+        
+         Some other licence text here
+    """.trimIndent()
+    println(message5)
 }
-
-fun foo(n : Int){}
-
-
-
-
-
-
-

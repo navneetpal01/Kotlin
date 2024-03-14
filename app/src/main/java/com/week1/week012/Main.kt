@@ -1,55 +1,89 @@
-package com.week1.week012;
+package com.week1.week012
 
 
-const val name = "Scott" //Stored and managed by the compiler in the class file
-fun main(args: Array<String>) {
-    val name1 : String= "Scott"  //String is redundant
-    val name2  = "Scott"  //Prefer way
 
-    val first = "Hello"
-    val last = "World"
-    val helloWorld = first + ", " + last //Basic string concatenation
+var redundantProperty : Int = 10
+    get() {   //Default Getter
+        return field   //Just a place where 10 got stored
+    }
+    set(value){   //Default Setter
+        field = value
+    }
 
-    println(helloWorld)
+val SimpleGetterProperty1 : Int //No Backing Field
+    get() {
+        return 10
+    }
 
-    val helloWorldUsingTemplate1 = "$first, $last" //Basic string concatenation with template
-    val helloWorldUsingTemplate2 = "${first.substring(0,2)}, ${last.substring(0,2)}" //Basic string concatenation with template
+//------------------------------------------------
+val SimpleGetterProperty2 : Int //No Backing Field
+    get() { //Read only, not immutable might not be idempotent
+        return getValue()
+    }
+fun getValue() : Int {
+    return behindTheScenes
+}
+var behindTheScenes : Int = 10
+//Difference between read only and immutable
+//SimpleGetterProperty2 = 20 // Can not it's read only
+//------------------------------------------------
 
-    val typeOfStrings = "animal"
-    val numberOfThings = 10
-    val onlyOne = 1
-    println(helloWorldUsingTemplate2)
+//TODO How it look at Default
+//These two are actually same
+var name : String = ""
+var nameToLog : String = ""
+    get() {
+        println("reading nameToLog")
+        return field
+    }
+    set(value) {
+        println("writing nameToLog")
+        field = value
+    }
 
-    val message1 = "There are $numberOfThings ${typeOfStrings}s"
-    println(message1)
-    val message2 = "There is $onlyOne $typeOfStrings"
-    println(message2)
+//TODO DataBase Example
+var nameInDataBase : String
+    get() {
+        return "Value from DataBase" //Pretend there was a call from the DataBase
+    }
+    set(value) {
+        //Store value in DataBase
+        println("Value Stored in the DataBase  $value")
+    }
 
 
-    //RAW STRINGS
-    val message3 = """
-        Copyright 2024 Scott Stanchfield
-        All Rights Reserved
-        
-        Some other licence text here
-    """.trimIndent()
-    println(message3)
+open class Mammal
+class Cat : Mammal()
+class Dog : Mammal()
+//This function is run inside the class in JavaVm the default name of the class is same as the file name
+fun main(){
+
+    nameInDataBase = "Raw"
+    println(nameInDataBase)
+
+    println(nameToLog)
+    nameToLog = "Scot"
+    println(nameToLog)
 
 
-    val message4 = """
-        |Copyright 2024 Scott Stanchfield
-        |                         All Rights Reserved
-        |
-        |Some other licence text here
-    """.trimMargin(marginPrefix = "|")
-    println(message4)
 
-//Takes the least indent and trims that
-    val message5 = """
-           Copyright 2024 Scott Stanchfield
-               All Rights Reserved
-        
-         Some other licence text here
-    """.trimIndent()
-    println(message5)
+    var x : Int = 42  //Property Declaration - CAN WRITE
+    x = 10
+    println(x)
+
+    val  y : Int = 15 //Property Declaration - CANNOT WRITE
+//   y = 100 CANNOT DO THIS!!
+    println(y)
+
+    var z  = 300 //Kotlin can Infer that Z is an Int based on the value
+
+    var mammal1 = Cat() //type of "mammal" is Cat
+    var mammal2 : Mammal = Cat() //type od "mammal2" is Mammal
+    mammal2 = Dog()
+
+    //Don't work
+//    mammal1 = Dog()
+
+
+    println("Hello, world")
 }
