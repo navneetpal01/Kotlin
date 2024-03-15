@@ -1,5 +1,7 @@
 package com.week2.week023
 
+import java.lang.RuntimeException
+
 fun main() {
     val x = a()
     println(x)
@@ -188,17 +190,47 @@ fun sampleFunction2() : Unit { //Equivalent to sample function one
 
 }
 
+//Fast fail functions
+fun a(n : Int, x : Int, y : Int){
+    //people typically did this as "single entry , single exit" approach
+    if (n in 5..10){
+        if (x in 1..10) {
+            if (y in 10..100) {
+                println("Do something (could be complex)")
+            }
+        }
+    }
+}
 
+//fail-fast
 
+fun failFastA1(n : Int, x : Int, y : Int){
+    //less readable conditions
+//    if (!(n in 5..10)) return
+//    if (n < 5 || n > 10) return
 
+    if (n !in 5..10) return
+    if (x !in 1..10) return
+    if (y !in 10..100) return
+    //people typically did this as "single entry , single exit" approach
+   println("do something (could be complex)")
+}
 
-//TODO fast fail
+fun failFastA2(n : Int, x : Int, y : Int){
+    if (n !in 5..10) throw RuntimeException("n is bad")
+    if (x !in 1..10) throw RuntimeException("x is bad")
+    if (y !in 10..100) throw RuntimeException("y is bad")
+    //people typically did this as "single entry , single exit" approacnbvh
+   println("do something (could be complex)")
+}
 
+fun failFastA3(n : Int, x : Int, y : Int){
+    check(n in 5..10){ "n is bad" }
+    check(x in 1..10){ "n is bad" }
 
-
-
-
-
+    //people typically did this as "single entry , single exit" approach
+   println("do something (could be complex)")
+}
 
 
 
