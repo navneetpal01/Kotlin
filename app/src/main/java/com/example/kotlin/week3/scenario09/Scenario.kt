@@ -2,6 +2,7 @@ package com.week3.scenario09
 
 import kotlin.reflect.KClass
 
+
 //In Kotlin if you aren't defining anything so by default it's Any 
 open class Tool : Any() {
     var name: String = ""
@@ -22,51 +23,32 @@ open class ToolBox {
         //protected set
         private set
 
-    var adders : Map<KClass<*>,(Tool,List<Tool>) -> Unit> = emptyMap()
+    var adders: MutableMap<KClass<*>, (Tool, List<Tool>) -> List<Tool>> = mutableMapOf()
         private set
 
-    fun registerAdder(toolType : KClass<*>,adder : (Tool,List<Tool>) -> List<Tool>){
-
+    fun registerAdder(toolType: KClass<*>, adder: (Tool, List<Tool>) -> List<Tool>) {
+        adders[toolType] = adder
     }
 
-    //These two are the overloads
-    fun add(tool: Tool) {  //A
-        println("      Toolbox.add(Tool)")
-        tools += tool
-
+    fun add(tool : Tool){
     }
 
-    fun add(tool: ScrewDriver) {   //B
-        println("      Toolbox.add(ScrewDriver)")
-        tools += tool
-
-    }
-
-    open fun add(tool: Saw) {   //C
-        println("      Toolbox.add(Saw)")
-        tools += tool
-
-    }
 
 }
-
-class SafeToolBox : ToolBox() {
-
-    override fun add(tool: Saw) {   //D
-        println("      Toolbox.add(Saw) - adding safely!!")
-        super.add(tool)
-    }
-}
-
 
 fun main() {
-    val safetoolbox: SafeToolBox = SafeToolBox()
-    val tools = listOf(Saw(), ScrewDriver())
+    val toolbox: ToolBox = ToolBox()
+
+    toolbox.registerAdder(Saw::class){tool, tools ->
+        println("Calling saw adder")
+        tools + tool
+    }
+    toolbox.registerAdder(ScrewDriver::class){tool, tools ->
+        println("Calling saw adder")
+        tools + tool
+    }
 
     println("Adding Tools")
-
-    safetoolbox.add(Saw())  //what will be called?? - add(Saw)
-    println(safetoolbox.tools)
 
 
     //Note  - calls to String() on each tool
